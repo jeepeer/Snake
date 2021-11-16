@@ -31,28 +31,23 @@ public class SnakeMove : MonoBehaviour
             zero = 0;
         } 
     }
-
+    
     private void MoveForward()
     {
         previousPosition = transform.position;
         transform.position += transform.forward;
         
-        //MoveSnakeParts(previousPosition);
-        for (int i = 0; i < snakeGrow.SnakeList.count; i++)
-        {
-            (snakeGrow.SnakeList[i].transform.position, previousPosition) =
-                (previousPosition, snakeGrow.SnakeList[i].transform.position);
-        }
+        MoveSnakeParts(previousPosition);
     }
 
-    /*private void MoveSnakeParts(Vector3 position)
+    private void MoveSnakeParts(Vector3 position)
     {
-        for (int i = 0; i < snakeGrow.SnakeList.count; i++)
+        for (int i = 0; i < snakeGrow.SnakeList.Count; i++)
         {
             (snakeGrow.SnakeList[i].transform.position, position) =
                 (position, snakeGrow.SnakeList[i].transform.position);
         }
-    }*/
+    }
     
     private void ProcessRotation()
     {

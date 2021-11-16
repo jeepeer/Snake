@@ -1,49 +1,45 @@
-using UnityEditor;
-using UnityEngine;
+
 
 public class LinkedList<T>
 {
-    public SnakeNode head;
-    public int count;
+    private SnakeNode head;
 
     public LinkedList()
     {
         head = default;
-        count = 0;
     }
 
     public class SnakeNode
     {
         public T item;
         public SnakeNode next;
-        public int index;
 
-        public SnakeNode(T snakeItem, SnakeNode nextSnakeNode, int snakeIndex)
+        public SnakeNode(T snakeItem, SnakeNode nextSnakeNode)
         {
             item = snakeItem;
             next = nextSnakeNode;
-            index = snakeIndex;
         }
     }
 
+    public int Count { get; set; }
+
     public void AddNewSnakeNode(T snakeItem)
     {
-        SnakeNode newNode = new SnakeNode(snakeItem, null, count);
+        SnakeNode newNode = new SnakeNode(snakeItem, null);
 
-        if (count == 0)
+        if (Count == 0)
         {
             head = newNode; 
         }
         
-        else if (count > 0)
+        else if (Count > 0)
         {
             newNode.next = head;
             head = newNode;
         }
         
-        count++;
+        Count++;
     }
-
 
     public T this[int index]
     {

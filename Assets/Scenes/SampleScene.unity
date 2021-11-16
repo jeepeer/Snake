@@ -178,11 +178,13 @@ GameObject:
   m_Component:
   - component: {fileID: 216908158}
   - component: {fileID: 216908157}
-  - component: {fileID: 216908159}
-  - component: {fileID: 216908161}
+  - component: {fileID: 216908165}
+  - component: {fileID: 216908164}
   - component: {fileID: 216908163}
   - component: {fileID: 216908160}
   - component: {fileID: 216908162}
+  - component: {fileID: 216908161}
+  - component: {fileID: 216908159}
   m_Layer: 0
   m_Name: snek
   m_TagString: Untagged
@@ -203,6 +205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBeforeMove: 0.5
+  previousPosition: {x: 0, y: 0, z: 0}
 --- !u!4 &216908158
 Transform:
   m_ObjectHideFlags: 0
@@ -213,25 +216,51 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1047072562}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &216908159
-MonoBehaviour:
+--- !u!23 &216908159
+MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 216908156}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5167d03b4735ec4bb3eec2360473c1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  snakeSegmentPrefab: {fileID: 1919992172831650135, guid: 21b8c63c7ec73554f878005443e5bf8c, type: 3}
-  eatingFruit: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: c1e08e84a901ff24393cbc3318c64f3f, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!54 &216908160
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -248,22 +277,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &216908161
-MonoBehaviour:
+--- !u!33 &216908161
+MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 216908156}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7451ada84477da04a86f543fa309ab80, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rows: 10
-  collumns: 10
---- !u!135 &216908162
-SphereCollider:
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!136 &216908162
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -272,9 +295,10 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.2
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: -0.02, y: -0.02, z: 0.02}
 --- !u!114 &216908163
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -289,6 +313,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rows: 10
   collumns: 10
+--- !u!114 &216908164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 216908156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7451ada84477da04a86f543fa309ab80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rows: 10
+  collumns: 10
+--- !u!114 &216908165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 216908156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5167d03b4735ec4bb3eec2360473c1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  snakeSegmentPrefab: {fileID: 1919992172831650135, guid: 21b8c63c7ec73554f878005443e5bf8c, type: 3}
+  eatingFruit: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -441,68 +493,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tile: {fileID: 735159517695228204, guid: 29eab18385cb73b4288d3475fc99b952, type: 3}
---- !u!1001 &1047072561
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 216908158}
-    m_Modifications:
-    - target: {fileID: 445908718100809289, guid: 21b8c63c7ec73554f878005443e5bf8c, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 445908718100809289, guid: 21b8c63c7ec73554f878005443e5bf8c, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 445908718100809289, guid: 21b8c63c7ec73554f878005443e5bf8c, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 445908718100809289, guid: 21b8c63c7ec73554f878005443e5bf8c, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 445908718100809289, guid: 21b8c63c7ec73554f878005443e5bf8c, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 445908718100809289, guid: 21b8c63c7ec73554f878005443e5bf8c, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 445908718100809289, guid: 21b8c63c7ec73554f878005443e5bf8c, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 445908718100809289, guid: 21b8c63c7ec73554f878005443e5bf8c, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 445908718100809289, guid: 21b8c63c7ec73554f878005443e5bf8c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 445908718100809289, guid: 21b8c63c7ec73554f878005443e5bf8c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 445908718100809289, guid: 21b8c63c7ec73554f878005443e5bf8c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1919992172831650135, guid: 21b8c63c7ec73554f878005443e5bf8c, type: 3}
-      propertyPath: m_Name
-      value: SnakeSegment
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 21b8c63c7ec73554f878005443e5bf8c, type: 3}
---- !u!4 &1047072562 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 445908718100809289, guid: 21b8c63c7ec73554f878005443e5bf8c, type: 3}
-  m_PrefabInstance: {fileID: 1047072561}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1219929148
 GameObject:
   m_ObjectHideFlags: 0

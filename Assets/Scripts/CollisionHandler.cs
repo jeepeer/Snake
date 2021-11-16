@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class CollisionHandler : Grid
 {
@@ -15,11 +14,16 @@ public class CollisionHandler : Grid
         {
             snakeGrow.eatingFruit = true;
             snakeGrow.AddNewSnakeSegment();
-            
             fruit.MoveToRandomPosition(rows,collumns);
+        }
+
+        if (other.TryGetComponent(out Reload reload))
+        {
+            reload.Opsie();
         }
         
         // reload scene
         //SceneManager.LoadScene(0);
+        //Debug.Log("dead");
     }
 }
