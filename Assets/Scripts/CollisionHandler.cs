@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CollisionHandler : Grid
+public class CollisionHandler : MonoBehaviour
 {
     private SnakeGrow snakeGrow;
     private void Start()
@@ -14,16 +14,12 @@ public class CollisionHandler : Grid
         {
             snakeGrow.eatingFruit = true;
             snakeGrow.AddNewSnakeSegment();
-            fruit.MoveToRandomPosition(rows,collumns);
+            fruit.MoveFruitToUnoccupiedTile(transform.position);
         }
 
-        if (other.TryGetComponent(out Reload reload))
+        else if (TryGetComponent(out GameOver gameOver))
         {
-            reload.Opsie();
+            gameOver.GameOverScreen();
         }
-        
-        // reload scene
-        //SceneManager.LoadScene(0);
-        //Debug.Log("dead");
     }
 }

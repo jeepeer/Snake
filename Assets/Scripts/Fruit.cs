@@ -1,18 +1,25 @@
 using UnityEngine;
-using Random = UnityEngine.Random;
+using Vector3 = UnityEngine.Vector3;
 
-public class Fruit : MonoBehaviour
+public class Fruit : GameController
 {
-    public void MoveToRandomPosition(int gridX, int gridZ)
+    private int randomIndexPosition = 0;
+    private Vector3 newFruitPosition = Vector3.zero;
+
+    public void MoveFruitToUnoccupiedTile(Vector3 snakePosition)
     {
-        int x;
-        int z;
+        randomIndexPosition = Random.Range(0, tilePositions.Length);
+        
+        for (int i = 0; i < tilePositions.Length; i++)
+        {
+            if (i == randomIndexPosition && tilePositions[i] != snakePosition)
+            {
+                newFruitPosition = tilePositions[i];
 
-        x = Random.Range(0, gridX);
-        z = Random.Range(0, gridZ);
-
-        Vector3 newFruitPosition = new Vector3(x, 0, z);
-
-        transform.position = newFruitPosition;
+                transform.position = newFruitPosition;
+                
+                break;
+            }
+        }
     }
 }

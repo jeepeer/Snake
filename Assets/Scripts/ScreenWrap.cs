@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ScreenWrap : Grid
+public class ScreenWrap : GameController
 {
     void Update()
     {
@@ -11,13 +11,13 @@ public class ScreenWrap : Grid
     {
         Vector3 snakePosition = transform.position;
         
-        if (transform.position.x > rows - 1 ) 
+        if (snakePosition.x > width -1) 
         {
             HorizontalWrappedPosition(snakePosition.z, 1); 
         }
-        else if (transform.position.x < 0) 
+        else if (snakePosition.x < 0) 
         { 
-            HorizontalWrappedPosition(snakePosition.z,rows);
+            HorizontalWrappedPosition(snakePosition.z,width);
         }
     }
     
@@ -32,13 +32,13 @@ public class ScreenWrap : Grid
     {
         Vector3 snakePosition = transform.position;
         
-        if (transform.position.z > collumns-1) 
+        if (snakePosition.z > height -1) 
         { 
             VerticalWrappedPosition(snakePosition.x, 1);
         }
-        else if (transform.position.z < 0)
+        else if (snakePosition.z < 0)
         {
-            VerticalWrappedPosition(snakePosition.x, collumns);
+            VerticalWrappedPosition(snakePosition.x, height);
         }
     }
 

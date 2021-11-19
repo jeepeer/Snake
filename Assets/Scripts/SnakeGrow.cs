@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using Quaternion = UnityEngine.Quaternion;
 
@@ -14,15 +13,12 @@ public class SnakeGrow : MonoBehaviour
     {
         move = GetComponent<SnakeMove>();
     }
-
-
+    
     public void AddNewSnakeSegment()
     {
-
-        GameObject snakePart = Instantiate(snakeSegmentPrefab, move.previousPosition, Quaternion.identity); // previous pos
+        GameObject snakePart = Instantiate(snakeSegmentPrefab, move.previousPosition, Quaternion.identity);
         SnakeList.AddNewSnakeNode(snakePart);
         eatingFruit = false;
-        
     }
 }
 

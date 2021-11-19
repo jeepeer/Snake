@@ -4,43 +4,42 @@ using Vector3 = UnityEngine.Vector3;
 public class SnakeMove : MonoBehaviour
 {
     [SerializeField] private float timeBeforeMove;
-    private float zero = 0;
-    private int rotationDegrees = 90;
-
     public Vector3 previousPosition;
-
+    private float zero = 0;
+    private Vector3 currentDirection;
     private SnakeGrow snakeGrow;
-
+    
     private void Start()
     {
         snakeGrow = GetComponent<SnakeGrow>();
+        currentDirection = Vector3.forward;
     }
     
     private void Update()
     {
+        ProcessDirection();
         MoveTimer();
-        ProcessRotation();
     }
     
     private void MoveTimer()
     {
         zero += Time.deltaTime;
-        if (zero >= timeBeforeMove) // refractor ? maybe not 
+        if (zero >= timeBeforeMove)
         {
-            MoveForward();
+            ProcessDirection();
+            MoveForward(currentDirection);
             zero = 0;
         } 
     }
-    
-    private void MoveForward()
+
+    private void MoveForward(Vector3 direction)
     {
         previousPosition = transform.position;
-        transform.position += transform.forward;
-        
+        transform.position += direction;
         MoveSnakeParts(previousPosition);
     }
-
-    private void MoveSnakeParts(Vector3 position)
+    
+    private void MoveSnakeParts(Vector3 position) // try get component for consistancy
     {
         for (int i = 0; i < snakeGrow.SnakeList.Count; i++)
         {
@@ -49,24 +48,33 @@ public class SnakeMove : MonoBehaviour
         }
     }
     
-    private void ProcessRotation()
+    private void ProcessDirection()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        VerticalMovement();
+        HorizontalMovement();
+    }
+
+    private void VerticalMovement()
+    {
+        if (Input.GetKeyDown(KeyCode.W) && currentDirection != Vector3.back)
         {
-            RotateLeft();
+            currentDirection = Vector3.forward;
         }
-        else if (Input.GetKeyDown(KeyCode.D))
+        else if (Input.GetKeyDown(KeyCode.S) && currentDirection != Vector3.forward)
         {
-            RotateRight();
+            currentDirection = Vector3.back;
         }
     }
 
-    private void RotateLeft()
+    private void HorizontalMovement()
     {
-        transform.Rotate(Vector3.down, rotationDegrees);
-    }
-    private void RotateRight()
-    {
-        transform.Rotate(Vector3.up, rotationDegrees);
+        if (Input.GetKeyDown(KeyCode.A) && currentDirection != Vector3.right)
+        {
+            currentDirection = Vector3.left;
+        }
+        else if (Input.GetKeyDown(KeyCode.D) && currentDirection != Vector3.left)
+        {
+            currentDirection = Vector3.right;
+        }
     }
 }

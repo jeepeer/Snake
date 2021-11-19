@@ -3,6 +3,7 @@
 public class LinkedList<T>
 {
     private SnakeNode head;
+    public int Count { get; private set; }
 
     public LinkedList()
     {
@@ -20,8 +21,6 @@ public class LinkedList<T>
             next = nextSnakeNode;
         }
     }
-
-    public int Count { get; set; }
 
     public void AddNewSnakeNode(T snakeItem)
     {

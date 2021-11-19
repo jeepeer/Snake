@@ -1,26 +1,25 @@
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class SpawnFruit : MonoBehaviour
+public class SpawnFruit : GameController
 {
     [SerializeField] private GameObject fruit;
-
-    private void Start()
-    {
-        FruitSpawner();
-    }
-
-    private void FruitSpawner()
-    {
-        Instantiate(fruit, FruitSpawnPosition(10, 10), Quaternion.identity);
-    }
+    private int randomIndexPosition = 0;
+    private Vector3 newFruitPosition = Vector3.zero;
     
-    private Vector3 FruitSpawnPosition(int gridX, int gridZ)
+    public void SpawnFruitOnUnoccupiedTile(Vector3 snakePosition)
     {
-        int randomX = Random.Range(0, gridX);
-        int randomZ = Random.Range(0, gridZ);
+        randomIndexPosition = Random.Range(0, tilePositions.Length);
+        
+        for (int i = 0; i < tilePositions.Length; i++)
+        {
+            if (i == randomIndexPosition && tilePositions[i] != snakePosition)
+            {
+                newFruitPosition = tilePositions[i];
 
-        Vector3 SpawnPosition = new Vector3(randomX, 0, randomZ);
-        return SpawnPosition;
+                Instantiate(fruit, newFruitPosition, Quaternion.identity);
+                break;
+            }
+        }
     }
 }
