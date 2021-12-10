@@ -8,10 +8,11 @@ public class SnakeMove : MonoBehaviour
     private float zero = 0;
     private Vector3 currentDirection;
     private SnakeGrow snakeGrow;
-    
+    private GameController gameController;
     private void Start()
     {
         snakeGrow = GetComponent<SnakeGrow>();
+        gameController = FindObjectOfType<GameController>();
         currentDirection = Vector3.forward;
     }
     
@@ -26,7 +27,6 @@ public class SnakeMove : MonoBehaviour
         zero += Time.deltaTime;
         if (zero >= timeBeforeMove)
         {
-            ProcessDirection();
             MoveForward(currentDirection);
             zero = 0;
         } 
@@ -35,11 +35,16 @@ public class SnakeMove : MonoBehaviour
     private void MoveForward(Vector3 direction)
     {
         previousPosition = transform.position;
-        transform.position += direction;
+
+        Vector3 futurePosition = transform.position + direction;
+        
+        transform.position = 
+            gameController.NextGridPosition(futurePosition);
+        
         MoveSnakeParts(previousPosition);
     }
-    
-    private void MoveSnakeParts(Vector3 position) // try get component for consistancy
+
+    private void MoveSnakeParts(Vector3 position) 
     {
         for (int i = 0; i < snakeGrow.SnakeList.Count; i++)
         {

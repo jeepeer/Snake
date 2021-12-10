@@ -94,4 +94,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d82a8f16f2d030498529c3383a3e733, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poop: {fileID: 0}
+  placedTileParent: {fileID: 0}
+  tile: {fileID: 0}
